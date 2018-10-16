@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 2</title>
+    <style>
+        .error {
+            border: red 1px solid;
+        }
+        .success {
+            border: green 1px solid;
+        }
+        .big-text {
+            font-size: 42px;
+        }
+        .hidden {
+            display: none;
+        }
+        .danger {
+            border: 3px solid darkred;
+            background-color: palevioletred;
+        }
+        .another-danger {
+            border: 3px solid orangered;
+            background-color: coral;
+        }
+        .textarea-danger {
+            border: 3px solid black;
+            background-color: dimgrey;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <input type="text" id='first-name' />
+    <input type="text" id='last-name' />
+    <input type="text" id='address' />
+</form>
+
+<div id="div-id">
+    Это див для задания.
+</div>
+<div id="div-to-show" style="display: none;">
+    Это второй скрытый див.
+</div>
+<textarea id="textarea-id" cols="20" rows="5">Это текстареа для задания.</textarea>
+
+<div>
+    <input id="counter" type="text">
+</div>
+
+<div id="add-class-id">
+    Этот текст <span id="span-to-hide">б</span>удет большим.
+</div>
+
+<input type="text" value="1" class="inputs-in-array">
+<input type="text" value="2" class="inputs-in-array">
+<input type="text" value="3" class="inputs-in-array">
+<input type="text" value="4" class="inputs-in-array">
+<input type="text" value="5" class="inputs-in-array">
+<textarea name="text" class="inputs-in-array" cols="20" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
+
+<script>
+    var firstNameEl = document.querySelector("#first-name");
+    var lastNameEl = document.querySelector("#last-name");
+    var addressEl = document.querySelector("#address");
+
+    var setErrorValue = () => {
+        var newValue = 'ERROR';
+        firstNameEl.value = newValue;
+        lastNameEl.value = newValue;
+        addressEl.value = newValue;
+    };
+    var setSuccessValue = () => {
+        var newValue = 'SUCCESS';
+        firstNameEl.value = newValue;
+        lastNameEl.value = newValue;
+        addressEl.value = newValue;
+    };
+
+    var changeValue = newValue => {
+        firstNameEl.value = newValue;
+        lastNameEl.value = newValue;
+        addressEl.value = newValue;
+    };
+    setTimeout(changeValue, 1000, "ERROR");
+    setTimeout(changeValue, 3000, "SUCCESS");
+    setTimeout(changeValue, 5000, "ERROR");
+    setTimeout(changeValue, 7000, "SUCCESS");
+
+    var addClassToElement = (selector, classname) => {
+        var element = document.querySelector(selector);
+        element.classList.add(classname);
+    };
+    addClassToElement("#first-name", "success");
+    addClassToElement("#last-name", "error");
+    addClassToElement("#address", "success");
+
+    var setError = selector => addClassToElement(selector, "error");
+    setError("#div-id");
+    setError("#textarea-id");
+
+    var timeoutError = () => setError("#first-name");
+    setTimeout(timeoutError, 1000);
+
+    var hideElement = id => {
+        var element = document.getElementById(id);
+        element.style.display = "none";
+    };
+    var showElement = id => {
+        var element = document.getElementById(id);
+        element.style.display = "block";
+    };
+    showElement("div-to-show");
+    hideElement("div-id");
+
+    var printCounter = id => {
+        var elem = document.getElementById(id);
+        setInterval(function() {
+            var date = new Date();
+            elem.value = date.getSeconds();
+        }, 1000)
+    };
+    printCounter("counter");
+
+    var getSum = (num1, num2) => {return parseInt(num1) + parseInt(num2)};
+    var res1 = getSum(34, 23);
+    console.log(res1);
+    var res2 = getSum(3434, 12);
+    console.log(res2);
+    var res3 = getSum(23, 23);
+    console.log(res3);
+    var res4 = getSum(12, 34);
+    console.log(res4);
+    var res5 = getSum('12', '34');
+    console.log(res5);
+
+    // second list
+
+    var removeElement = querySelector => {
+        var element = document.querySelector(querySelector);
+        if (element != null) {
+            element.remove();
+        }else {
+            console.warn('Элемент не найден');
+        }
+    };
+    removeElement("#textarea-id");
+
+    var addClassToElement2 = (id, cssClass) => {
+        var element = document.getElementById(id);
+        if(element != null) {
+            element.className = cssClass;
+        }
+    };
+    addClassToElement2('add-class-id', 'big-text');
+
+    var hideElement2 = id => addClassToElement2(id, 'hidden');
+    hideElement2('span-to-hide');
+
+    var showElement2 = id => addClassToElement2(id, '');
+    showElement2('span-to-hide');
+
+    var dangerIfValueIs2 = array => {
+        array.forEach(i => {
+            if (i.value === '2') {
+                i.classList.add('danger');
+            }
+        })
+    };
+    var inputsArr = document.querySelectorAll('.inputs-in-array');
+    dangerIfValueIs2(inputsArr);
+
+    var dangerIfValueIs3 = array => {
+        array.forEach(i => {
+            if (i.value === '3') {
+                i.classList.add('another-danger');
+            }
+        })
+    };
+    dangerIfValueIs3(inputsArr);
+
+    var dangerIfValueIs = (array, value) => {
+        array.forEach(i => {
+            if(i.value === value) {
+                i.classList.add('danger');
+            }
+        })
+    };
+    dangerIfValueIs(inputsArr, '2');
+
+    var dangerIfTextarea = array => {
+        array.forEach(i => {
+            if(i.tagName === 'TEXTAREA') {
+                i.classList.add('textarea-danger');
+            }
+        })
+    };
+    dangerIfTextarea(inputsArr);
+</script>
+</body>
+</html>
